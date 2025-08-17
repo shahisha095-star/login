@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Login</title>
+    <style>
+        /* --- CSS STYLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        /* CSS Variables for easy themeing */
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-primary: #1c1e21;
+            --text-secondary: #65676b;
+            --button-bg: #2c3e50;
+            --button-text: #ffffff;
+            --border-color: #dddfe2;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Centering */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Login Card Styling */
+        .login-container {
+            background-color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        /* Form Element Styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input::placeholder {
+            color: #cccccc;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--button-bg);
+            box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.2);
+        }
+        
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #34495e; /* A slightly lighter shade for hover effect */
+        }
+        
+        /* Utility class to hide elements */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div id="step1">
+            <h1>Welcome</h1>
+            <p>Please enter your details to login.</p>
+            <form id="detailsForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="khushi" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="1234567890" pattern="[0-9]{10}" required>
+                </div>
+                <button type="submit">Send OTP</button>
+            </form>
+        </div>
+
+        <div id="step2" class="hidden">
+            <h1>Welcome</h1>
+            <p>An OTP has been sent to your mobile.</p>
+            <form id="otpForm">
+                <div class="form-group">
+                    <label for="otp">OTP</label>
+                    <input type="text" id="otp" name="otp" placeholder="123456" pattern="[0-9]{6}" required>
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+
+            const detailsForm = document.getElementById('detailsForm');
+            const otpForm = document.getElementById('otpForm');
+
+            // Event listener for the first form (Send OTP)
+            detailsForm.addEventListener('submit', (event) => {
+                // Prevent the default form submission which reloads the page
+                event.preventDefault(); 
+                
+                const name = document.getElementById('name').value;
+                const mobile = document.getElementById('mobile').value;
+                
+                // For a real application, you would send these details to your server
+                // to generate and send an actual OTP via SMS.
+                console.log(`Requesting OTP for ${name} at ${mobile}`);
+                alert('OTP has been sent (simulated).');
+
+                // Hide the first step and show the second step
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+            });
+
+            // Event listener for the second form (Sign In)
+            otpForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const otp = document.getElementById('otp').value;
+                
+                // In a real application, you would send this OTP to your server for verification.
+                console.log(`Verifying OTP: ${otp}`);
+
+                // Simulating a successful verification
+                if (otp) {
+                    alert('Sign in successful! 🎉');
+                    // You could redirect the user or update the UI here.
+                    console.log('User has been successfully signed in.');
+                } else {
+                    alert('Please enter the OTP.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
